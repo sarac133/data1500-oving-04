@@ -6,7 +6,7 @@ Denne oppgaven er en øving og det forventes ikke at du kan alt som det er spurt
 
 Du bruker denne filen for å besvare deloppgavene. Du må eventuelt selv finne ut hvordan du kan legge inn bilder (images) i en Markdown-fil som denne. Da kan du ta et bilde av dine ER-diagrammer, legge bildefilen inn på en lokasjon i repository og henvise til filen med syntaksen i Markdown. 
 
-Det er anbefalt å tegne ER-diagrammer med [mermaid.live](https://mermaid.life/) og legge koden inn i Markdown (denne filen) på følgende måte:
+Det er anbefalt å tegne ER-diagrammer med [mermaid.live](https://mermaid.live/) og legge koden inn i Markdown (denne filen) på følgende måte:
 ```
 ```mermaid
 erDiagram
@@ -32,7 +32,7 @@ I et klasserom kan studentene lese beskjeder fra læreren. Hvert klasserom har o
 
 ## Del 2: Logisk Skjema (Tabellstruktur)
 
-**Oppgave:** Oversett den konseptuelle modellen til en logisk tabellstruktur. Spesifiser tabellnavn, attributter (kolonner), datatyper, primærnøkler (PK) og fremmednøkler (FK). Tegn et utvidet ER-diagram med [mermaid.live](https://mermaid.life/) eller eventuelt på papir.
+**Oppgave:** Oversett den konseptuelle modellen til en logisk tabellstruktur. Spesifiser tabellnavn, attributter (kolonner), datatyper, primærnøkler (PK) og fremmednøkler (FK). Tegn et utvidet ER-diagram med [mermaid.live](https://mermaid.live/) eller eventuelt på papir.
 
 
 **Ditt svar:***
