@@ -129,15 +129,6 @@ erDiagram
 
 **Ditt svar:***
 ```sql
--- =====================================================
--- DATA1500 – Nettbasert Undervisning
--- DDL + Mock Data
--- =====================================================
-
-
--- =========================
--- USERS
--- =========================
 CREATE TABLE IF NOT EXISTS users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(30) UNIQUE NOT NULL,
@@ -146,10 +137,6 @@ CREATE TABLE IF NOT EXISTS users (
     opprettet TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
--- =========================
--- VIRTUAL CLASSROOMS
--- =========================
 CREATE TABLE IF NOT EXISTS virtualclassroom (
     classroom_id SERIAL PRIMARY KEY,
     code VARCHAR(30) UNIQUE NOT NULL,
@@ -158,20 +145,12 @@ CREATE TABLE IF NOT EXISTS virtualclassroom (
     opprettet TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
--- =========================
--- GROUPS
--- =========================
 CREATE TABLE IF NOT EXISTS groups (
     group_id SERIAL PRIMARY KEY,
     group_name VARCHAR(20) UNIQUE NOT NULL,
     opprettet TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
--- =========================
--- ANNOUNCEMENTS
--- =========================
 CREATE TABLE IF NOT EXISTS announcements (
     announcement_id SERIAL PRIMARY KEY,
     sender_id INT NOT NULL REFERENCES users(user_id),
@@ -181,10 +160,6 @@ CREATE TABLE IF NOT EXISTS announcements (
     content TEXT NOT NULL
 );
 
-
--- =========================
--- FORUM POSTS (with replies)
--- =========================
 CREATE TABLE IF NOT EXISTS forumposts (
     post_id SERIAL PRIMARY KEY,
     sender_id INT NOT NULL REFERENCES users(user_id),
@@ -195,86 +170,44 @@ CREATE TABLE IF NOT EXISTS forumposts (
     parent_post_id INT REFERENCES forumposts(post_id)
 );
 
-
--- =========================
--- USER ↔ GROUP (junction)
--- =========================
 CREATE TABLE IF NOT EXISTS usergroup (
     user_id INT NOT NULL REFERENCES users(user_id),
     group_id INT NOT NULL REFERENCES groups(group_id),
     PRIMARY KEY (user_id, group_id)
 );
 
-
--- =========================
--- GROUP ↔ CLASSROOM ACCESS
--- =========================
 CREATE TABLE IF NOT EXISTS groupclassroomaccess (
     group_id INT NOT NULL REFERENCES groups(group_id),
     classroom_id INT NOT NULL REFERENCES virtualclassroom(classroom_id),
     PRIMARY KEY (group_id, classroom_id)
 );
 
-
--- =====================================================
--- MOCK DATA
--- =====================================================
-
-
--- =========================
--- USERS
--- =========================
 INSERT INTO users (username, password, user_role) VALUES
 ('tom_freddie', 'pass123', 'student'),
 ('nancy_petruini', 'pass456', 'student'),
 ('berg_bergerson', 'teachme', 'teacher');
 
-
--- =========================
--- VIRTUAL CLASSROOM
--- =========================
 INSERT INTO virtualclassroom (code, name, teacher_id) VALUES
 ('DATA1500', 'Databases and Data Modeling', 3);
 
-
--- =========================
--- GROUPS
--- =========================
 INSERT INTO groups (group_name) VALUES
 ('Group A'),
 ('Group B');
 
-
--- =========================
--- USER ↔ GROUP
--- =========================
 INSERT INTO usergroup (user_id, group_id) VALUES
 (1, 1),
 (2, 1);
 
-
--- =========================
--- GROUP ↔ CLASSROOM ACCESS
--- =========================
 INSERT INTO groupclassroomaccess (group_id, classroom_id) VALUES
 (1, 1);
 
-
--- =========================
--- ANNOUNCEMENTS
--- =========================
 INSERT INTO announcements (sender_id, classroom_id, title, content) VALUES
 (3, 1, 'Welcome to DATA1500',
  'Welcome everyone! All course information will be posted here.');
 
-
--- =========================
--- FORUM POSTS
--- =========================
 INSERT INTO forumposts (sender_id, classroom_id, title, content) VALUES
 (1, 1, 'Question about assignments',
  'Will the assignments be individual or group based?');
-
 
 INSERT INTO forumposts (sender_id, classroom_id, title, content, parent_post_id) VALUES
 (3, 1, 'Re: Question about assignments',
