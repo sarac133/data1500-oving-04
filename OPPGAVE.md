@@ -53,6 +53,73 @@ erDiagram
 
 
 **Ditt svar:***
+```mermaid
+erDiagram
+    Users {
+        int user_id PK
+        varchar(30) username 
+        varchar(50) password
+        varchar(20) user_role
+        timestamp opprettet
+    }
+    VirtualClassroom {
+        int classroom_id PK
+        varchar(30) code 
+        varchar(50) name
+        int teacher_id FK
+        timestamp opprettet
+    }
+    Groups {
+        int group_id PK 
+        varchar(20) group_name
+        timestamp opprettet
+    }
+    Announcements {
+        int announcement_id PK 
+        int sender_id FK 
+        int classroom_id FK
+        timestamp created_at
+        varchar(100) title
+        text content 
+    }
+    ForumPosts {
+        int post_id PK
+        int sender_id FK
+        int classroom_id FK
+        timestamp created_at
+        varchar(100) title
+        text content 
+        int parent_post_id FK
+    }
+    UserGroup {
+        int user_id PK, FK
+        int group_id PK, FK
+    }
+    GroupClassroomAccess {
+       int group_id PK, FK
+       int classroom_id PK, FK 
+    }
+    %% A user can be in zero or many groups
+    Users ||--o{ UserGroup : "has"
+    %% A group can have zero or many users 
+    Groups ||--o{ UserGroup : "contains"
+    
+    Users ||--o{ VirtualClassroom : "teaches"
+    %% A group can access 0 or many classerooms
+    Groups ||--o{ GroupClassroomAccess : "grants"
+    %% One clasroom can be accessed by many groups 
+    VirtualClassroom ||--o{ GroupClassroomAccess : "allows"
+
+    %% A user can send 0 or many announcements
+    Users ||--o{ Announcements : "sends"
+    %% One classroom can have many announcements 
+    VirtualClassroom ||--o{ Announcements : "has"
+    
+    %% Only one user can write many forum posts
+    Users ||--o{ ForumPosts : "writes"
+    %% Each post can be accessed by many classrooms 
+    VirtualClassroom ||--o{ ForumPosts : "contains"
+```
 
 
 ## Del 3: Datadefinisjon (DDL) og Mock-Data
