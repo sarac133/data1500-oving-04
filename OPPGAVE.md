@@ -271,11 +271,12 @@ INSERT INTO forumposts (sender_id, classroom_id, title, content, parent_post_id)
 ### 4. Finn antall grupper.
 
 *   **Relasjonsalgebra (med aggregering):**
-    > 
+    > γ COUNT(group_id) (groups)
 
 *   **SQL:**
     ```sql
-    
+    SELECT COUNT(*) 
+    FROM groups;
     ```
 
 ## Del 5: Implementer i postgreSQL i din Docker container
