@@ -221,11 +221,25 @@ INSERT INTO forumposts (sender_id, classroom_id, title, content, parent_post_id)
 ### 1. Finn de 3 nyeste beskjeder fra læreren i et gitt klasserom (f.eks. klasserom_id = 1).
 
 *   **Relasjonsalgebra:**
-    > 
+    > π_{announcement_id, sender_id, classroom_id, created_at}
+    (
+    σ_{virtualclassroom.classroom_id = 1 ∧ announcements.sender_id = virtualclassroom.teacher_id}
+    (
+    announcements ⨝_{announcements.classroom_id = virtualclassroom.classroom_id}
+    virtualclassroom
+    )
+    )
 
 *   **SQL:**
     ```sql
-    
+    SELECT a.announcement_id, a.sender_id, a.classroom_id, a.created_at
+    FROM announcements a
+    JOIN virtualclassroom vc
+        ON a.classroom_id = vc.classroom_id
+    WHERE vc.classroom_id = 1
+        AND a.sender_id = vc.teacher_id
+    ORDER BY a.created_at DESC
+    LIMIT 3;
     ```
 
 ### 2. Vis en hel diskusjonstråd startet av en spesifikk student (f.eks. avsender_id = 2).
