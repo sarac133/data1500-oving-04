@@ -257,11 +257,15 @@ INSERT INTO forumposts (sender_id, classroom_id, title, content, parent_post_id)
 ### 3. Finn alle studenter i en spesifikk gruppe (f.eks. gruppe_id = 1).
 
 *   **Relasjonsalgebra:**
-    > 
+    > π user_id (σ user_role = 'student' ∧ group_id = 1 (users ⨝ usergroup))
 
 *   **SQL:**
     ```sql
-    
+    SELECT u.user_id 
+    FROM users u
+    JOIN usergroup ug
+    ON u.user_id = ug.user_id
+    WHERE u.user_role = 'student' AND ug.group_id = 1
     ```
 
 ### 4. Finn antall grupper.
